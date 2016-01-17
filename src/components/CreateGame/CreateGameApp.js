@@ -105,6 +105,7 @@ export default class CreateGame extends ParseComponent {
             </View>
           </View>
           <View>
+            <View style={styles.container}>
             <Text style={styles.label}>Select a Time For Today</Text>
             <DatePickerIOS
               date={this.state.date}
@@ -112,6 +113,7 @@ export default class CreateGame extends ParseComponent {
               onDateChange={this.updateDateChange.bind(this)}
               minuteInterval={30}
             />
+          </View>
           </View>
           <View style={styles.fields}>
           <Text style={styles.label}>Choose Park</Text>
@@ -151,6 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
     marginTop:10
   },
   label: {
