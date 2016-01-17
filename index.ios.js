@@ -4,6 +4,7 @@
  */
 'use strict';
 import NearbyApp from './src/components/Nearby/NearbyApp';
+import JoinGameApp from './src/components/JoinGame/JoinGameApp';
 
 import React, {
   AppRegistry,
@@ -66,6 +67,10 @@ class SBMeetup extends Component {
       return (
         <NearbyApp navigator={navigator} />
       );
+    } else if (route.id === 'JoinGame') {
+      return (
+        <JoinGameApp gameData={route.gameData} navigator={navigator} />
+      );
     }
   }
 
@@ -74,7 +79,7 @@ class SBMeetup extends Component {
     return (
       <Navigator
           ref='navigator'
-          initialRoute={{id: 'Nearby', title: "Nearby" }}
+          initialRoute={{id: 'Nearby', title: 'Nearby' }}
           renderScene={this._renderScene}
           sceneStyle={styles.container}
           navigationBar={
@@ -91,9 +96,11 @@ class SBMeetup extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    marginTop: 40
   },
   welcome: {
     fontSize: 20,

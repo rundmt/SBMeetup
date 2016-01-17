@@ -11,15 +11,16 @@ import React, {
   StyleSheet,
   PropTypes,
   Text,
+  ScrollView,
   View
 } from 'react-native';
 
 export default class NearbyList extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.props.locations.map((location, index)=>
-            <NearbyItem key={index} location={location}/>
+            <NearbyItem key={index} location={location} navigator={this.props.navigator}/>
         )}
       </View>
     );
@@ -31,5 +32,7 @@ NearbyList.propTypes = {
 };
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1
+  }
 });
