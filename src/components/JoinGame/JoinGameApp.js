@@ -7,12 +7,16 @@ import JoinGameButton from './JoinGameButton'
 import React, {
   AppRegistry,
   Component,
+  Dimensions,
   StyleSheet,
   Text,
   ScrollView,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  MapView
 } from 'react-native';
+
+var {width, height} = Dimensions.get('window');
 
 export default class JoinGameApp extends Component {
   constructor(props){
@@ -36,13 +40,15 @@ export default class JoinGameApp extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container}>
-
+        <MapView
+          style={styles.map}
+          region={{latitude: 37.422733, longitude: -122.087662,  latitudeDelta: 0.01, longitudeDelta: 0.03}}
+        />
+        <View style={styles.playerList}>
           {this.state.playerinfo.map((player, index)=>
             <Text key={index}>{player.name}</Text>
           )}
-        </ScrollView>
-
+        </View>
         <TouchableOpacity onPress= {this.joinGame.bind(this)} style={{position: 'absolute', left:-20, bottom:20}}>
           <View>
             <Text style={styles.button}>
@@ -66,5 +72,15 @@ const styles = StyleSheet.create({
     height: 80,
     width: 200,
     left:0
-    }
+  },
+  playerList: {
+    backgroundColor: 'blue'
+  },
+  map: {
+    height: 0.4 * height,
+    width: width,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
+  },
 });
