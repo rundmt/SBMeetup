@@ -89,7 +89,8 @@ export default class JoinGameApp extends Component {
         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
           <MapView
             style={styles.map}
-            region={{latitude: 37.422733, longitude: -122.087662,  latitudeDelta: 0.01, longitudeDelta: 0.03}}
+            region={{latitude: this.state.gameInfo.parkInfo.coordinates._latitude, longitude: this.state.gameInfo.parkInfo.coordinates._longitude,  latitudeDelta: 0.01, longitudeDelta: 0.03}}
+            annotations={[{latitude: this.state.gameInfo.parkInfo.coordinates._latitude, longitude: this.state.gameInfo.parkInfo.coordinates._longitude}]}
           />
         </View>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', width: width ,backgroundColor: 'white', padding: 10}}>
