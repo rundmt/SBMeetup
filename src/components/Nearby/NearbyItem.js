@@ -20,7 +20,7 @@ export default class NearbyItem extends Component {
 
   showGame(){
     console.log(this.props.navigator);
-    this.props.navigator.push({id: 'JoinGame', gameInfo: this.props.location });
+    this.props.navigator.push({id: 'JoinGame', title: 'Game',gameInfo: this.props.location });
   }
 
   render() {

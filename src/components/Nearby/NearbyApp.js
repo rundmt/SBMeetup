@@ -20,25 +20,27 @@ export default class NearbyApp extends Component {
     super(props);
     this.state = {
       locations: [{gameInfo: {
-                      name: 'something',
+                      name: 'Battle 60',
                       numberOfPlayers: 10,
                       spotsLeft: 4,
                       time:'12:15PM'
                   },
                   locationInfo: {
                     park: 'Golden Gate Park',
-                    location: {lat: 123, long: 123}
+                    location: {lat: 123, long: 123},
+                    address: '55 Music Concourse Dr, San Francisco, CA 94118'
                   }
                 },
                 {gameInfo: {
-                        name: 'something2',
+                        name: 'Play 6060',
                         numberOfPlayers: 13,
                         spotsLeft: 1,
                         time:'4:00PM'
                     },
                     locationInfo: {
                       park: 'Dolores Park',
-                      location: {lat: 123, long: 123}
+                      location: {lat: 123, long: 123},
+                      address: '19th & Dolores St, San Francisco, CA 94114'
                     }
                 }
         ]
