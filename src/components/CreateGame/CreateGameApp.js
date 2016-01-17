@@ -34,6 +34,7 @@ export default class CreateGame extends ParseComponent {
       numberOfPlayersRequired: '',
       startTime: '',
       parkIndex: 0,
+      playerName: '',
       date: new Date(),
     };
 
@@ -49,6 +50,7 @@ export default class CreateGame extends ParseComponent {
                 numberOfPlayers: 1,
                 numberRequired: parseInt(this.state.numberOfPlayersRequired),
                 date: this.state.date,
+                players: [this.state.playerName],
                 parkInfo: this.data.parks[this.state.parkIndex]
               };
     console.log(data);
@@ -57,7 +59,7 @@ export default class CreateGame extends ParseComponent {
     var self = this;
     game.save(data,{
       success: function(game){
-        self.props.navigator.push({id: 'JoinGame', data: game, title: 'Game'});
+        self.props.navigator.push({id: 'JoinGame', gameData: data, title: 'Game'});
       },
       error: function(game, error){
 
@@ -81,6 +83,15 @@ export default class CreateGame extends ParseComponent {
                   style={{width: 200, height: 40, borderColor: 'gray', backgroundColor: 'white', borderWidth: 1}}
                   onChangeText={(gameName) => this.setState({gameName})}
                   value={this.state.gameName}/>
+            </View>
+          </View>
+          <View style={styles.fields}>
+            <View style={styles.container}>
+            <Text style={styles.label}>Your Name</Text>
+            <TextInput
+                  style={{width: 200, height: 40, borderColor: 'gray', backgroundColor: 'white', borderWidth: 1}}
+                  onChangeText={(playerName) => this.setState({playerName})}
+                  value={this.state.playerName}/>
             </View>
           </View>
           <View style={styles.fields}>
@@ -156,9 +167,14 @@ const styles = StyleSheet.create({
   button:{
     width: width,
     height: height * 0.05,
-    backgroundColor: '#00ACC1'
+    backgroundColor: '#00ACC1',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '700'
   },
 });

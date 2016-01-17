@@ -23,7 +23,7 @@ export default class NearbyItem extends Component {
 
   showGame(){
     console.log(this.props.navigator);
-    this.props.navigator.push({id: 'JoinGame', title: 'Game',gameInfo: this.props.location });
+    this.props.navigator.push({id: 'JoinGame', title: 'Game', gameData: this.props.location });
   }
 
   render() {
@@ -47,7 +47,7 @@ export default class NearbyItem extends Component {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',
-    borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: 'black',
     padding: 10,
     width: width,

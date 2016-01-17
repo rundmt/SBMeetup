@@ -40,7 +40,7 @@ export default class NearbyApp extends ParseComponent {
     return this.data.games.map(returnCoords);
   }
 
-  render() {    
+  render() {
     return (
       <View style={styles.container}>
         <MapView
@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
   map: {
     flexDirection: 'row',
     height: 0.4 * height,
-    width: width,
-    borderWidth: 1,
-    borderColor: '#000000',
+    width: width,    
   },
 });

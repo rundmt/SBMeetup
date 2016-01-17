@@ -69,6 +69,7 @@ class SBMeetup extends Component {
         <NearbyApp navigator={navigator} />
       );
     } else if (route.id === 'JoinGame') {
+      console.log("gameData", route.gameData);
       return (
         <JoinGameApp gameData={route.gameData} navigator={navigator} />
       );

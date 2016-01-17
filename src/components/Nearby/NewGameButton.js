@@ -41,9 +41,14 @@ const styles = StyleSheet.create({
   button:{
     width: width,
     height: height * 0.07,
-    backgroundColor: '#00ACC1'
+    backgroundColor: '#00ACC1',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '700'
   }
 });

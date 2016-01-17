@@ -28,14 +28,13 @@ var {width, height} = Dimensions.get('window');
 export default class JoinGameApp extends Component {
   constructor(props){
     super(props);
+    console.log('data', this.props.gameData);
     this.state = {
-      gameInfo: this.props.navigator.state.routeStack[this.props.navigator.state.routeStack.length -1].gameInfo,
-      players: this.props.navigator.state.routeStack[this.props.navigator.state.routeStack.length -1].gameInfo.players,
+      gameInfo: this.props.gameData,
+      players: this.props.gameData.players,
       modalShowing: false,
       newPlayerName: ''
     };
-    console.log(this.state.gameInfo);
-    // console.log(this.props.navigator.state.routeStack[this.props.navigator.state.routeStack.length -1].gameInfo);
   }
 
   addPlayer(){
@@ -121,27 +120,29 @@ export default class JoinGameApp extends Component {
             visible={this.state.modalShowing}>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
               <View style={{flexDirection: 'row'}}>
-                <View style={{width: width, height: 0.3*height, backgroundColor: 'white'}}>
+                <View style={{width: width*0.8, height: 0.20*height, backgroundColor: 'white', padding: 20, borderWidth: 2, borderColor: 'black'}}>
                   <Text>Input Players Name</Text>
                   <TextInput
                       style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                       onChangeText={(newPlayerName) => this.setState({newPlayerName})}
                       value={this.state.newPlayerName}
                     />
-                  <TouchableOpacity onPress= {this.addPlayer.bind(this)}>
-                    <View>
-                      <Text>
-                        Add
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress= {this.closeModal.bind(this)}>
-                    <View>
-                      <Text>
-                        Cancel
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
+                  <View style={{flex:1, flexDirection: 'row'}}>
+                    <TouchableOpacity style={{flex:1}} onPress= {this.addPlayer.bind(this)}>
+                      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#00ACC1'}}>
+                        <Text>
+                          Add
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{flex:1}} onPress= {this.closeModal.bind(this)}>
+                      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F44336'}}>
+                        <Text>
+                          Cancel
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
@@ -149,7 +150,7 @@ export default class JoinGameApp extends Component {
           <TouchableOpacity onPress= {this.launchModal.bind(this)}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>
-                Join Game
+                Add Name To Players
               </Text>
             </View>
           </TouchableOpacity>
@@ -176,16 +177,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 0.4 * height,
     width: width,
-    borderWidth: 1,
-    borderColor: '#000000',
   },
   button:{
     width: width,
     height: height * 0.05,
-    backgroundColor: '#00ACC1'
+    backgroundColor: '#00ACC1',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '700'
   },
   listText: {
     fontSize: 20,
