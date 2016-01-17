@@ -7,9 +7,7 @@ var Parse = require('parse/react-native');
 var ParseReact = require('parse-react/react-native');
 var ParseComponent = ParseReact.Component(React);
 
-
 import React, {
-  AppRegistry,
   Component,
   Dimensions,
   Modal,
@@ -20,7 +18,8 @@ import React, {
   View,
   TouchableOpacity,
   MapView,
-  PickerIOS
+  PickerIOS,
+  DatePickerIOS
 } from 'react-native';
 
 var PickerItemIOS = PickerIOS.Item;
@@ -33,18 +32,46 @@ export default class CreateGame extends ParseComponent {
     this.state = {
       gameName: '',
       numberOfPlayersRequired: '',
-      startTime: ''
+      startTime: '',
+      parkIndex: 0,
+      date: new Date(),
     };
-    console.log(this.props.navigator.state.routeStack[this.props.navigator.state.routeStack.length -1].gameInfo);
+
+  }
+
+  updateDateChange(newDate) {
+    this.setState({date: newDate});
+  }
+
+  createGame(){
+    var data = {
+                name: this.state.gameName,
+                numberOfPlayers: 1,
+                numberRequired: parseInt(this.state.numberOfPlayersRequired),
+                date: this.state.date,
+                parkInfo: this.data.parks[this.state.parkIndex]
+              };
+    console.log(data);
+    var Game = Parse.Object.extend('Games');
+    var game = new Game();
+    var self = this;
+    game.save(data,{
+      success: function(game){
+        self.props.navigator.push({id: 'JoinGame', data: game, title: 'Game'});
+      },
+      error: function(game, error){
+
+      }
+    });
   }
 
   observe(){
     return {
-      parks: (new Parse.Query("Parks")).descending("createdAt"),
+      parks: (new Parse.Query('Parks')).descending('createdAt'),
     };
   }
   render() {
-    console.log(this.data.parks)
+    console.log(this.state.date);
     return (
         <View style={styles.container}>
           <View style={styles.fields}>
@@ -63,19 +90,35 @@ export default class CreateGame extends ParseComponent {
             value={this.state.numberOfPlayersRequired}/>
           </View>
           <View>
+            <Text>Pick a Date</Text>
+            <DatePickerIOS
+              date={this.state.date}
+              mode="time"
+              onDateChange={this.updateDateChange.bind(this)}
+              minuteInterval={30}
+            />
+          </View>
+          <View style={styles.fields}>
           <Text>Choose Park</Text>
           <PickerIOS
-            onValueChange={(parks) => this.setState({parks})}>
-            {(this.data.parks).map((park, index) => (
-           <PickerItemIOS
-             key={index}
-             value={index}
-             label={park.name}
-           />
-         ))}
-        </PickerIOS>
+            style={{width: 200}}
+            selectedValue={this.state.parkIndex}
+            key={this.state.parkIndex}
+            itemStyle={{fontSize: 14, color: 'red', textAlign: 'left'}}
+            onValueChange={(park) => this.setState({parkIndex: park})}>
+            {this.data.parks.map((park, index) => (
+              <PickerItemIOS
+                key={index}
+                value={index}
+                label={park.name}
+              />
+            ))}
+          </PickerIOS>
 
           </View>
+          <TouchableOpacity onPress={this.createGame.bind(this)}>
+            <Text>Create Game</Text>
+          </TouchableOpacity>
 
         </View>
     );

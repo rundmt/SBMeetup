@@ -62,15 +62,15 @@ export default class JoinGameApp extends Component {
           <View style={{flexDirection: 'row', flexWrap: 'wrap', width: width}}>
             <View style={{flexDirection: 'column', flex: 1, flexWrap: 'wrap', width: width}}>
               <View style={{flex: 1}}>
-                <Text>{this.state.gameInfo.gameInfo.name} @ {this.state.gameInfo.locationInfo.park}</Text>
+                <Text>{this.state.gameInfo.name} @ {this.state.gameInfo.parkInfo.name}</Text>
               </View>
               <View style={{flex: 1}}>
-                <Text>{this.state.gameInfo.locationInfo.address}</Text>
+                <Text>{this.state.gameInfo.parkInfo.address}</Text>
               </View>
             </View>
             <View style={{flexDirection: 'column', flex: 1, flexWrap: 'wrap', width: width}}>
               <View style={{flex: 1}}>
-                <Text>{this.state.gameInfo.gameInfo.time}</Text>
+                <Text>{this.state.gameInfo.date.toString()}</Text>
               </View>
 
             </View>

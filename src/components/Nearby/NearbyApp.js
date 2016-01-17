@@ -76,7 +76,7 @@ export default class NearbyApp extends ParseComponent {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
-          <NearbyList navigator={this.props.navigator} locations={this.state.locations}/>
+          <NearbyList navigator={this.props.navigator} locations={this.data.games}/>
         </ScrollView>
         <NewGameButton navigator={this.props.navigator}/>
       </View>
