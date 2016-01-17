@@ -75,22 +75,26 @@ export default class CreateGame extends ParseComponent {
     return (
         <View style={styles.container}>
           <View style={styles.fields}>
-            <Text>Game Name</Text>
+            <View style={styles.container}>
+            <Text style={styles.label}>Game Name</Text>
             <TextInput
-                  style={{width: 200, height: 40, borderColor: 'gray', borderWidth: 1}}
+                  style={{width: 200, height: 40, borderColor: 'gray', backgroundColor: 'white', borderWidth: 1}}
                   onChangeText={(gameName) => this.setState({gameName})}
                   value={this.state.gameName}/>
+            </View>
           </View>
           <View style={styles.fields}>
-            <Text>Number Of Players</Text>
-            <TextInput
-            keyboardType='numeric'
-            style={{width: 40, height: 40, borderColor: 'gray', borderWidth: 1, right: 0}}
-            onChangeText={(numberOfPlayersRequired) => this.setState({numberOfPlayersRequired})}
-            value={this.state.numberOfPlayersRequired}/>
+            <View style={styles.container}>
+              <Text style={styles.label}>Number Of Players</Text>
+              <TextInput
+              keyboardType='numeric'
+              style={{width: 200, height: 40, borderColor: 'gray', backgroundColor: 'white', borderWidth: 1}}
+              onChangeText={(numberOfPlayersRequired) => this.setState({numberOfPlayersRequired})}
+              value={this.state.numberOfPlayersRequired}/>
+            </View>
           </View>
           <View>
-            <Text>Pick a Date</Text>
+            <Text style={styles.label}>Select a Time For Today</Text>
             <DatePickerIOS
               date={this.state.date}
               mode="time"
@@ -99,12 +103,12 @@ export default class CreateGame extends ParseComponent {
             />
           </View>
           <View style={styles.fields}>
-          <Text>Choose Park</Text>
+          <Text style={styles.label}>Choose Park</Text>
           <PickerIOS
             style={{width: 200}}
             selectedValue={this.state.parkIndex}
             key={this.state.parkIndex}
-            itemStyle={{fontSize: 14, color: 'red', textAlign: 'left'}}
+            itemStyle={{fontSize: 14, color: 'red', textAlign: 'left', height: height*0.2}}
             onValueChange={(park) => this.setState({parkIndex: park})}>
             {this.data.parks.map((park, index) => (
               <PickerItemIOS
@@ -117,7 +121,9 @@ export default class CreateGame extends ParseComponent {
 
           </View>
           <TouchableOpacity onPress={this.createGame.bind(this)}>
-            <Text>Create Game</Text>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Create Game</Text>
+            </View>
           </TouchableOpacity>
 
         </View>
@@ -134,9 +140,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    marginTop:10
   },
-  playerList: {
-
+  label: {
+    fontSize: 14,
+    fontWeight: '600'
   },
   map: {
     flexDirection: 'row',
@@ -144,5 +152,13 @@ const styles = StyleSheet.create({
     width: width,
     borderWidth: 1,
     borderColor: '#000000',
+  },
+  button:{
+    width: width,
+    height: height * 0.05,
+    backgroundColor: '#00ACC1'
+  },
+  buttonText: {
+    color: 'white'
   },
 });

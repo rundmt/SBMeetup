@@ -7,6 +7,7 @@ import JoinGameButton from './JoinGameButton'
 var Parse = require('parse/react-native');
 var ParseReact = require('parse-react/react-native');
 var ParseComponent = ParseReact.Component(React);
+var moment = require('moment');
 
 import React, {
   AppRegistry,
@@ -70,6 +71,19 @@ export default class JoinGameApp extends Component {
     this.setState({modalShowing: true});
   }
 
+  getPlayers(){
+    if(this.state.players){
+      return(
+        this.state.players.map((player,index)=>
+          <Text key={index}>{player}</Text>
+        ));
+    } else {
+      return (
+        <Text>No Players</Text>
+      );
+    }
+  }
+
   render() {
     return (
         <View style={styles.container}>
@@ -79,10 +93,10 @@ export default class JoinGameApp extends Component {
             region={{latitude: 37.422733, longitude: -122.087662,  latitudeDelta: 0.01, longitudeDelta: 0.03}}
           />
         </View>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', width: width}}>
-            <View style={{flexDirection: 'column', flex: 1, flexWrap: 'wrap', width: width}}>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', width: width ,backgroundColor: 'white', padding: 10}}>
+            <View style={{flexDirection: 'column', flex: 2, flexWrap: 'wrap', width: width}}>
               <View style={{flex: 1}}>
-                <Text>{this.state.gameInfo.name} @ {this.state.gameInfo.parkInfo.name}</Text>
+                <Text style={styles.header}>{this.state.gameInfo.name} @ {this.state.gameInfo.parkInfo.name}</Text>
               </View>
               <View style={{flex: 1}}>
                 <Text>{this.state.gameInfo.parkInfo.address}</Text>
@@ -90,17 +104,15 @@ export default class JoinGameApp extends Component {
             </View>
             <View style={{flexDirection: 'column', flex: 1, flexWrap: 'wrap', width: width}}>
               <View style={{flex: 1}}>
-                <Text>{this.state.gameInfo.date.toString()}</Text>
+                <Text>{moment(this.state.gameInfo.date.toString()).format('MMM Do, h:mma')}</Text>
               </View>
 
             </View>
 
           </View>
           <View style={styles.playerList}>
-            {this.state.players.map((player,index)=>
-              <Text key={index}>{player}</Text>
-
-            )}
+            <Text style={styles.listText}>Players List</Text>
+            {this.getPlayers()}
           </View>
 
           <Modal
@@ -135,8 +147,8 @@ export default class JoinGameApp extends Component {
             </View>
           </Modal>
           <TouchableOpacity onPress= {this.launchModal.bind(this)}>
-            <View>
-              <Text style={styles.button}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>
                 Join Game
               </Text>
             </View>
@@ -150,9 +162,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: 'white'
+  },
+  header: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20
   },
   playerList: {
-
+    padding: 10
   },
   map: {
     flexDirection: 'row',
@@ -161,4 +179,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#000000',
   },
+  button:{
+    width: width,
+    height: height * 0.05,
+    backgroundColor: '#00ACC1'
+  },
+  buttonText: {
+    color: 'white'
+  },
+  listText: {
+    fontSize: 20,
+    fontWeight: "700"
+  }
 });

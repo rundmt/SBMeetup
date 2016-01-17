@@ -8,12 +8,15 @@ import NearbyItem from './NearbyItem';
 import React, {
   AppRegistry,
   Component,
+  Dimensions,
   StyleSheet,
   PropTypes,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
+
+var {width, height} = Dimensions.get('window');
 
 export default class NewGameButton extends Component {
   gotoCreate(){
@@ -22,10 +25,10 @@ export default class NewGameButton extends Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={this.gotoCreate.bind(this)} style={{position: 'absolute', left:-20, bottom:20}}>
-        <View>
-          <Text style={styles.button}>
-          Make a New Game!!!
+      <TouchableOpacity onPress={this.gotoCreate.bind(this)}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>
+            Make a New Game
           </Text>
         </View>
       </TouchableOpacity>
@@ -35,12 +38,12 @@ export default class NewGameButton extends Component {
 
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'green',
-    borderRadius: 20,
-    textAlign: 'center',
-    height: 80,
-    width: 200,
-    left:0
-    }
+  button:{
+    width: width,
+    height: height * 0.07,
+    backgroundColor: '#00ACC1'
+  },
+  buttonText: {
+    color: 'white'
+  }
 });

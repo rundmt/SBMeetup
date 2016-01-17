@@ -23,7 +23,7 @@ export default class NewGameButton extends Component {
       <TouchableOpacity onPress= {this.joinGame.bind(this)} style={{position: 'absolute', left:-20, bottom:20}}>
         <View>
           <Text style={styles.button}>
-          Join Game
+            Join Game
           </Text>
         </View>
       </TouchableOpacity>

@@ -31,7 +31,7 @@ LeftButton: function(route, navigator, index, navState) {
     <TouchableOpacity
       onPress={() => navigator.pop()}
       style={styles.navBarLeftButton}>
-      <Text style={[styles.navBarText, styles.navBarButtonText]}>
+      <Text style={[styles.navBarText, styles.navBarButtonText, {marginLeft: 20}]}>
         {previousRoute.title}
       </Text>
     </TouchableOpacity>
@@ -40,13 +40,7 @@ LeftButton: function(route, navigator, index, navState) {
 
 RightButton: function(route, navigator, index, navState) {
   return (
-    <TouchableOpacity
-      onPress={() => navigator.push({id: 'Match', title: "Match" })}
-      style={styles.navBarRightButton}>
-      <Text style={[styles.navBarText, styles.navBarButtonText]}>
-        Next
-      </Text>
-    </TouchableOpacity>
+      false
   );
 },
 
@@ -110,19 +104,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    marginTop: 60
+    backgroundColor: '#E0E0E0',
+    marginTop: 50
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  navBar: {
+    backgroundColor: '#00BCD4',
+    height: 50
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  navBarText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold'
+  }
+
 });
 
 AppRegistry.registerComponent('SBMeetup', () => SBMeetup);
