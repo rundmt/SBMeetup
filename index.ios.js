@@ -5,6 +5,10 @@
 'use strict';
 import NearbyApp from './src/components/Nearby/NearbyApp';
 import JoinGameApp from './src/components/JoinGame/JoinGameApp';
+import CreateGame from './src/components/CreateGame/CreateGameApp';
+var Parse = require('parse/react-native');
+var ParseReact = require('parse-react/react-native');
+var ParseComponent = ParseReact.Component(React);
 
 import React, {
   AppRegistry,
@@ -59,7 +63,10 @@ Title: function(route, navigator, index, navState) {
 
 
 class SBMeetup extends Component {
-
+  constructor(props){
+    super(props);
+    Parse.initialize('rPQahlw3OxxkByBKphoRJ9zeXblVJO5DQIu1cfcs', 'BlPQQ1EgrD5Eqk9sET8Tb0U1jgIjKOpa2XZdf7tU' );
+  }
 
 
   _renderScene(route, navigator){
@@ -70,6 +77,10 @@ class SBMeetup extends Component {
     } else if (route.id === 'JoinGame') {
       return (
         <JoinGameApp gameData={route.gameData} navigator={navigator} />
+      );
+    }else if (route.id === 'CreateGame'){
+      return(
+        <CreateGame navigator={navigator}/>
       );
     }
   }

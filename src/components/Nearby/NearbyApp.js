@@ -5,6 +5,9 @@
 'use strict';
 import NearbyList from './NearbyList';
 import NewGameButton from './NewGameButton'
+var Parse = require('parse/react-native');
+var ParseReact = require('parse-react/react-native');
+var ParseComponent = ParseReact.Component(React);
 
 import React, {
   AppRegistry,
@@ -15,9 +18,22 @@ import React, {
   View
 } from 'react-native';
 
-export default class NearbyApp extends Component {
+export default class NearbyApp extends ParseComponent {
   constructor(props){
     super(props);
+
+    // ParseReact.Mutation.Create("Games", {
+    //                 name: 'Test 3',
+    //                 numberOfPlayers: 5,
+    //                 numberRequired: 18,
+    //                 date: new Date('1/16/19 10:15 PM'),
+    //                 parkInfo: {
+    //                   id: 'fUKdfAREB2',
+    //                   park: 'Dolores Park',
+    //                   location: {lat: 37.759768, long: -122.427079},
+    //                   address: '55 Music Concourse Dr, San Francisco, CA 94118'
+    //                 }
+    //             }).dispatch();
     this.state = {
       locations: [{gameInfo: {
                       name: 'Battle 60',
@@ -47,14 +63,22 @@ export default class NearbyApp extends Component {
     };
   }
 
+  observe(){
+    return {
+      games: (new Parse.Query("Games")).descending("createdAt"),
+    };
+  }
 
   render() {
+    console.log(this.data.games);
+    // this.data.games[1].set('parkId', 'fUKdfAREB2');
+    // this.data.games[1].save();
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
           <NearbyList navigator={this.props.navigator} locations={this.state.locations}/>
         </ScrollView>
-        <NewGameButton/>
+        <NewGameButton navigator={this.props.navigator}/>
       </View>
     );
   }
