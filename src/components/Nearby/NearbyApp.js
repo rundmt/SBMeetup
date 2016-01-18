@@ -21,13 +21,30 @@ import React, {
 } from 'react-native';
 var {width, height} = Dimensions.get('window');
 
-function returnCoords(games) {
-  return games.parkInfo.coordinates;
-}
-
 export default class NearbyApp extends ParseComponent {
   constructor(props){
     super(props);
+    this.state ={
+      initialPosition: {
+        coords: {
+          latitude : 'unknown',
+          longitude: 'unknown'
+        }
+      },
+      markers: []
+    };
+  }
+
+  componentDidMount(){
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var initialPosition = position;
+        this.setState({initialPosition});
+        console.log(this.state.initialPosition);
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
   }
 
   observe(){
@@ -36,16 +53,13 @@ export default class NearbyApp extends ParseComponent {
     };
   }
 
-  getCoordinates(){
-    return this.data.games.map(returnCoords);
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          region={{latitude: 37.422733, longitude: -122.087662,  latitudeDelta: 0.01, longitudeDelta: 0.03}}
+          region={{latitude: this.state.initialPosition.coords.latitude, longitude: this.state.initialPosition.coords.longitude,  latitudeDelta: 0.01, longitudeDelta: 0.03}}
+          annotations={[{latitude: this.state.initialPosition.coords.latitude, longitude: this.state.initialPosition.coords.longitude}]}
         />
         <ScrollView style={styles.container}>
           <NearbyList navigator={this.props.navigator} locations={this.data.games}/>
@@ -63,6 +77,6 @@ const styles = StyleSheet.create({
   map: {
     flexDirection: 'row',
     height: 0.4 * height,
-    width: width,    
+    width: width,
   },
 });
